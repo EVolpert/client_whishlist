@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # Project Apps
     'customers.apps.CustomersConfig',
+    'whishlist.apps.WhishlistConfig',
 ]
 
 MIDDLEWARE = [

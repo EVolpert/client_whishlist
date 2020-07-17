@@ -49,7 +49,7 @@ class CustomerDetail(APIView):
         return Response(serializer.data)
 
     def put(self, request, customer_id):
-        customer = Customer.objects.get(id=customer_id)
+        customer = get_object_or_404(Customer, id=customer_id)
         serializer = CustomerSerializer(customer, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -60,7 +60,7 @@ class CustomerDetail(APIView):
         return response
 
     def delete(self, request, customer_id):
-        customer = Customer.objects.get(id=customer_id)
+        customer = get_object_or_404(Customer, id=customer_id)
         customer.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
