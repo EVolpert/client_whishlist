@@ -32,13 +32,13 @@ def get_or_update(customer_id=None, product_id=None):
         if product_exist:
             pass
         else:
-            wishlist.whishlist['products'].append(product)
-            wishlist.whishlist['count'] = len(wishlist.whishlist['products'])
+            wishlist.wishlist['products'].append(product)
+            wishlist.wishlist['count'] = len(wishlist.wishlist['products'])
             wishlist.save()
 
     return wishlist
 
-def delete_product_from_whishlist(customer_id, product_id):
+def delete_product_from_wishlist(customer_id, product_id):
     customer = get_object_or_404(Customer, id=customer_id)
     wishlist = get_object_or_404(Wishlist, customer=customer)
     wishlist_products = wishlist.wishlist['products']
@@ -48,6 +48,8 @@ def delete_product_from_whishlist(customer_id, product_id):
     if product_exist:
         index = wishlist_products.index(product_exist[0])
         del wishlist_products[index]
+        wishlist.wishlist['count'] = len(wishlist.wishlist['products'])
+        wishlist.save()
     else:
         raise Http404('Product does not exist in wishlist')
     return wishlist
