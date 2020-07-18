@@ -38,7 +38,7 @@ def get_or_update(customer_id=None, product_id=None):
 
     return wishlist
 
-def delete_product_from_whishlist(customer_id, product_id):
+def delete_product_from_wishlist(customer_id, product_id):
     customer = get_object_or_404(Customer, id=customer_id)
     wishlist = get_object_or_404(Wishlist, customer=customer)
     wishlist_products = wishlist.wishlist['products']

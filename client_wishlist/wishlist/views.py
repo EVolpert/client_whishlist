@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from customers.auth import authenticate
 from wishlist.models import Wishlist
 from wishlist.serializers import WishlistSerializer
-from wishlist.wishlist_svc import get_or_update, delete_product_from_whishlist
+from wishlist.wishlist_svc import get_or_update, delete_product_from_wishlist
 
 
 class WishListDetailView(APIView):
@@ -63,7 +63,7 @@ class WishListDetailView(APIView):
         return response
 
 
-class WislistUpdateView(APIView):
+class WishlistUpdateView(APIView):
     def post(self, request, customer_id, product_id):
         try:
             token = request.META['HTTP_AUTHORIZATION']
@@ -88,7 +88,7 @@ class WislistUpdateView(APIView):
             response = Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             if authenticated:
-                whishlist = delete_product_from_whishlist(customer_id, product_id)
+                whishlist = delete_product_from_wishlist(customer_id, product_id)
                 serializer = WishlistSerializer(whishlist)
                 response = Response(serializer.data, status=status.HTTP_200_OK)
             else:

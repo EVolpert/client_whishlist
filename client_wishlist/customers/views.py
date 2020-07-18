@@ -1,5 +1,3 @@
-from django.http import HttpResponse
-from django.middleware.csrf import get_token
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.views import APIView
@@ -8,7 +6,6 @@ from rest_framework.response import Response
 from customers.auth import generate_token, authenticate
 from customers.models import Customer
 from customers.serializers import CustomerSerializer
-
 
 
 class LoginView(APIView):
@@ -24,10 +21,6 @@ class LoginView(APIView):
             response = Response(status=status.HTTP_401_UNAUTHORIZED)
 
         return response
-
-
-def csrf(request):
-    return HttpResponse(get_token(request))
 
 
 class CustomerList(APIView):
