@@ -25,28 +25,6 @@ class WishListDetailView(APIView):
                 response = Response(status=status.HTTP_401_UNAUTHORIZED)
         return response
 
-    def post(self, request, customer_id):
-        wishlist_data = request.data
-        wishlist_data["customer"] = customer_id
-
-        try:
-            token = request.META['HTTP_AUTHORIZATION']
-            authenticated = authenticate(customer_id=customer_id, token=token)
-        except KeyError:
-            response = Response(status=status.HTTP_400_BAD_REQUEST)
-        else:
-            if authenticated:
-                serializer = WishlistSerializer(data=wishlist_data)
-                if serializer.is_valid():
-                    serializer.save()
-                    response = Response(serializer.data, status=status.HTTP_201_CREATED)
-                else:
-                    response = Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            else:
-                response = Response(status=status.HTTP_401_UNAUTHORIZED)
-
-        return response
-
     def delete(self, request, customer_id):
         try:
             token = request.META['HTTP_AUTHORIZATION']
