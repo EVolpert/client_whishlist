@@ -69,3 +69,6 @@ Para isso rode o comando ```$ python manage.py createsuperuser``` e siga as inst
 
 ## Rodando o projeto
 Para rodar o projeto use o comando ```python manage.py runserver``` na pasta que contenha o arquivo ```manage.py```
+
+# Documentação dos Endpoints
+[Documentação](https://github.com/EVolpert/client_whishlist/blob/develop/docs.md)
