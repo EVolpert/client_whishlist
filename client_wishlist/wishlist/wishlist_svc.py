@@ -21,33 +21,33 @@ def get_product(product_id=None):
 def get_or_update(customer_id=None, product_id=None):
     customer = get_object_or_404(Customer, id=customer_id)
     product = get_product(product_id)
-    whishlist_template = {'count': 1, 'products': [product]}
-    whishlist, created = Wishlist.objects.get_or_create(customer=customer, defaults={"wishlist": whishlist_template})
+    wishlist_template = {'count': 1, 'products': [product]}
+    wishlist, created = Wishlist.objects.get_or_create(customer=customer, defaults={"wishlist": wishlist_template})
 
     if created:
         pass
     else:
-        product_exist = list(filter(lambda product_wish: product_wish['id'] == product_id, whishlist.whishlist['products']))
+        product_exist = list(filter(lambda product_wish: product_wish['id'] == product_id, wishlist.wishlist['products']))
 
         if product_exist:
             pass
         else:
-            whishlist.whishlist['products'].append(product)
-            whishlist.whishlist['count'] = len(whishlist.whishlist['products'])
-            whishlist.save()
+            wishlist.whishlist['products'].append(product)
+            wishlist.whishlist['count'] = len(wishlist.whishlist['products'])
+            wishlist.save()
 
-    return whishlist
+    return wishlist
 
 def delete_product_from_whishlist(customer_id, product_id):
     customer = get_object_or_404(Customer, id=customer_id)
-    whishlist = get_object_or_404(Wishlist, customer=customer)
-    whishlist_products = whishlist.whishlist['products']
+    wishlist = get_object_or_404(Wishlist, customer=customer)
+    wishlist_products = wishlist.wishlist['products']
 
-    product_exist = list(filter(lambda product_wish: product_wish['id'] == product_id, whishlist_products))
+    product_exist = list(filter(lambda product_wish: product_wish['id'] == product_id, wishlist_products))
 
     if product_exist:
-        index = whishlist_products.index(product_exist[0])
-        del whishlist_products[index]
+        index = wishlist_products.index(product_exist[0])
+        del wishlist_products[index]
     else:
         raise Http404('Product does not exist in wishlist')
-    return whishlist
+    return wishlist
